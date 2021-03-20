@@ -9,6 +9,21 @@ Builds [vector tilesets](https://www.mapbox.com/developers/vector-tiles/) from l
 [![Build Status](https://travis-ci.org/mapbox/tippecanoe.svg)](https://travis-ci.org/mapbox/tippecanoe)
 [![Coverage Status](https://codecov.io/gh/mapbox/tippecanoe/branch/master/graph/badge.svg)](https://codecov.io/gh/mapbox/tippecanoe)
 
+### :zap: Mapbox has a new service for creating vector tilesets! :zap:
+
+[Mapbox Tiling Service (MTS)](https://docs.mapbox.com/mapbox-tiling-service/overview/) is a hosted, data processing service that allows you to integrate custom datasets of any scale into your maps faster, cheaper, and with more flexibility and control than previously possible.
+
+MTS is the same service we use internally to create our global, daily updating basemap product Mapbox Streets, which serves over 650 million monthly active users and customers such as Facebook, Snap, the Weather Channel, Tableau, and Shopify. 
+
+MTS creates and updates data using distributed and parallelized processing, meaning data is processed much more quickly than is possible with a standard, single server setup with comparable tools. For example, a global basemap at 30cm precision (max zoom of 16) can be processed in under 2 hours with MTS, whereas a comparable workload would take multiple days to process on a single server.
+
+Customers like AllTrails, Plume Labs, and Ookla have noted that MTS helps them:
+- build applications faster by focusing more on app development, not infrastructure
+- build more compelling user experiences that drive better user engagement
+- get updated data to their users faster—in some cases up to 90% faster than previous tools
+
+Learn more about [MTS](https://blog.mapbox.com/introducing-mapbox-tiling-service-df1df636c7cf).
+
 Intent
 ------
 
@@ -792,7 +807,7 @@ Example
 Imagine you have a tileset of census blocks:
 
 ```sh
-curl -O http://www2.census.gov/geo/tiger/TIGER2010/TABBLOCK/2010/tl_2010_06001_tabblock10.zip
+curl -L -O http://www2.census.gov/geo/tiger/TIGER2010/TABBLOCK/2010/tl_2010_06001_tabblock10.zip
 unzip tl_2010_06001_tabblock10.zip
 ogr2ogr -f GeoJSON tl_2010_06001_tabblock10.json tl_2010_06001_tabblock10.shp
 ./tippecanoe -o tl_2010_06001_tabblock10.mbtiles tl_2010_06001_tabblock10.json
@@ -801,7 +816,7 @@ ogr2ogr -f GeoJSON tl_2010_06001_tabblock10.json tl_2010_06001_tabblock10.shp
 and a CSV of their populations:
 
 ```sh
-curl -O http://www2.census.gov/census_2010/01-Redistricting_File--PL_94-171/California/ca2010.pl.zip
+curl -L -O http://www2.census.gov/census_2010/01-Redistricting_File--PL_94-171/California/ca2010.pl.zip
 unzip -p ca2010.pl.zip cageo2010.pl |
 awk 'BEGIN {
     print "GEOID10,population"
